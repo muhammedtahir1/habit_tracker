@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaAngleRight } from "react-icons/fa6";
 import { FaAngleLeft } from "react-icons/fa6";
 
@@ -29,6 +29,16 @@ const gov_holidays = [
 ];
 
 function Calendar2() {
+  
+  // const [dates, setDates] = useState([
+  //   {
+  //     date: new Date(),
+  //     isChecked:
+  //   }
+  // ])
+
+  const [isToggled, SetisToggled] = useState(false);
+
   const [date, setDate] = useState(new Date());
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
@@ -47,6 +57,11 @@ function Calendar2() {
     "November",
     "December",
   ];
+
+  const handleChange = ()=>{
+    SetisToggled(!isToggled);
+    console.log(isToggled);
+  }
 
   useEffect(() => {
     renderCalendar();
@@ -77,42 +92,35 @@ function Calendar2() {
 
       // ✅Check for second Tuesday of the month
       const currentDate = new Date(year, month, i);
-      if (
-        currentDate.getDay() === 2 &&
-        currentDate.getDate() >= 8 &&
-        currentDate.getDate() <= 14
-      ) {
-        style += " second-tuesday";
-      }
+      // if (
+      //   currentDate.getDay() === 2 &&
+      //   currentDate.getDate() >= 8 &&
+      //   currentDate.getDate() <= 14
+      // ) {
+      //   style += " second-tuesday";
+      // }
 
       // ✅Check for Monday
-      if (currentDate.getDay() === 1) {
-        // Use currentDate.getDay() === 1
-        style += " monday";
-      }
+      // if (currentDate.getDay() === 1) {
+      //   // Use currentDate.getDay() === 1
+      //   style += " monday";
+      // }
 
       // ✅Check for fourth Saturday
-      if ((i + start - 1) % 7 === 6 && (i + start) / 7 == 4) {
-        style += " fourth-saturday";
-      }
+      // if ((i + start - 1) % 7 === 6 && (i + start) / 7 == 4) {
+      //   style += " fourth-saturday";
+      // }
 
       // Check for government holidays
-      gov_holidays.forEach((each) => {
-        // console.log(
-        //   currentDate.getFullYear(),
-        //   parseInt(each.date.slice(0, 4)),
-        //   each.date
-        // );
-
-        // return
-        if (
-          currentDate.getMonth() === parseInt(each.date.slice(5, 7)) &&
-          currentDate.getFullYear() === parseInt(each.date.slice(0, 4)) &&
-          currentDate.getDate() === parseInt(each.date.slice(8, 10))
-        ) {
-          style += " gov_holiday";
-        }
-      });
+      // gov_holidays.forEach((each) => {
+      //   if (
+      //     currentDate.getMonth() === parseInt(each.date.slice(5, 7)) &&
+      //     currentDate.getFullYear() === parseInt(each.date.slice(0, 4)) &&
+      //     currentDate.getDate() === parseInt(each.date.slice(8, 10))
+      //   ) {
+      //     style += " gov_holiday";
+      //   }
+      // });
 
       // ✅Check for today
       if (
@@ -122,6 +130,17 @@ function Calendar2() {
       ) {
         style += " today";
       }
+
+      // Toggle check
+      if(
+        i === date.getDate() &&
+        month === date.getMonth() &&
+        year === date.getFullYear() &&
+        isToggled === true
+      ){
+        style += " worked";
+      }
+      
 
       datesHtml.push(
         <li key={i} className={style}>
@@ -144,7 +163,7 @@ function Calendar2() {
     return (
       <div className="mt-16 calendar">
         <h1 className="mb-5 text-3xl font-semibold text-center">
-          Library Holidays
+          Monthly / Habit tracker
         </h1>
 
         <div className="flex justify-between">
@@ -186,6 +205,16 @@ function Calendar2() {
           ))}
           {datesHtml}
         </ul>
+
+        {/* Toggle */}
+        <div className="flex flex-col items-center justify-center gap-4 mt-10">
+          <h1 className="text-lg">Did you work today?</h1>
+          <div className="flex gap-4">
+            {/* <button className="bg-blue-200 text-black px-6 py-2 rounded-[20px] text-md font-bold" >Yes</button>
+        <button className="bg-red-400 text-black px-6 py-2 rounded-[20px] text-md font-bold">No</button> */}
+            <input onClick={handleChange} type="checkbox" className="toggle"  />
+          </div>
+        </div>
       </div>
     );
   };
