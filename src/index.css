@@ -22,10 +22,10 @@
     @apply rounded-full bg-red-600 size-7 text-white flex justify-center items-center
   }
   .today {
-    @apply rounded-full bg-blue-700 size-7 text-white flex justify-center items-center
+    @apply rounded-full  border-blue-700 border-2 size-7 text-white flex justify-center items-center
   }
   .worked {
-    @apply rounded-full bg-green-700 size-7 text-white flex justify-center items-center
+    @apply rounded-full bg-green-700 border-none size-7 text-white flex justify-center items-center
   }
   .notWorked {
     @apply rounded-full bg-red-700 size-7 text-white flex justify-center items-center

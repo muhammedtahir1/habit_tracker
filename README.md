@@ -20,3 +20,14 @@
     - Like a to-do 
     - It will store the data in db 
     - Display it in the page.
+
+
+## Problem
+
+- The toggle has to be in one state i.e true or false.
+    - Can't really display the not worked color with toggle
+    - need buttons like YES or NO
+
+- Added buttons 
+    - the function is declared in the top of the loop
+    - problem -> "function is declared but null" inside the loop

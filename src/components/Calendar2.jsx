@@ -37,7 +37,8 @@ function Calendar2() {
   //   }
   // ])
 
-  const [isToggled, SetisToggled] = useState(false);
+  // const [isToggled, SetisToggled] = useState(false);
+  
 
   const [date, setDate] = useState(new Date());
   const [month, setMonth] = useState(date.getMonth());
@@ -58,14 +59,16 @@ function Calendar2() {
     "December",
   ];
 
-  const handleChange = ()=>{
-    SetisToggled(!isToggled);
-    console.log(isToggled);
-  }
+  // const handleChange = ()=>{
+  //   SetisToggled(!isToggled);
+  // }
 
   useEffect(() => {
     renderCalendar();
   }, [month, year]);
+  function workedToday(val1, val2){
+    console.log(val1, val2)
+  }
 
   const renderCalendar = () => {
     const start = new Date(year, month, 1).getDay();
@@ -75,8 +78,21 @@ function Calendar2() {
 
     const datesHtml = [];
 
-    // console.log(date, month, year);
-    // console.log(start,endDate, end, endDatePrev);
+
+    // const workedToday = ()=>{
+    //   for (let i = 1; i <= endDate; i++) {
+    //     let style = "";
+    //     if(
+    //       i === date.getDate() &&
+    //       month === date.getMonth() &&
+    //       year === date.getFullYear()
+    //     ){
+    //       style += "worked";
+    //     }
+    //   }
+    // }
+    
+
 
     for (let i = start; i > 0; i--) {
       datesHtml.push(
@@ -126,20 +142,38 @@ function Calendar2() {
       if (
         i === date.getDate() &&
         month === date.getMonth() &&
-        year === date.getFullYear()
+        year === date.getFullYear() 
       ) {
         style += " today";
       }
 
       // Toggle check
-      if(
-        i === date.getDate() &&
-        month === date.getMonth() &&
-        year === date.getFullYear() &&
-        isToggled === true
-      ){
-        style += " worked";
+      // if(
+      //   i === date.getDate() &&
+      //   month === date.getMonth() &&
+      //   year === date.getFullYear() &&
+      //   isToggled === true
+      // ){
+      //   style += " worked";
+      // }
+
+      // Buttons
+
+      function workedToday(val1, val2) {
+        console.log(val1,val2);
+        if (i === date.getDate() &&
+          month === date.getMonth() &&
+          year === date.getFullYear() &&
+          val1 === "worked"
+        ){
+          style += val1;
+        }
+        else{
+          style += val2;
+        }
       }
+
+      
       
 
       datesHtml.push(
@@ -210,9 +244,9 @@ function Calendar2() {
         <div className="flex flex-col items-center justify-center gap-4 mt-10">
           <h1 className="text-lg">Did you work today?</h1>
           <div className="flex gap-4">
-            {/* <button className="bg-blue-200 text-black px-6 py-2 rounded-[20px] text-md font-bold" >Yes</button>
-        <button className="bg-red-400 text-black px-6 py-2 rounded-[20px] text-md font-bold">No</button> */}
-            <input onClick={handleChange} type="checkbox" className="toggle"  />
+            <button className="bg-green-500 text-white px-6 py-2 rounded-[20px] text-md font-bold"  onClick={()=>{workedToday("worked")}} >Yes</button>
+            <button className="bg-red-500 text-white px-6 py-2 rounded-[20px] text-md font-bold" onClick={()=>{workedToday("notWorked")}} >No</button>
+            {/* <input onClick={handleChange} type="checkbox" className="toggle"  /> */}
           </div>
         </div>
       </div>
